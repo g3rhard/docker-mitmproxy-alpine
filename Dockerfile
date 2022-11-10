@@ -1,9 +1,8 @@
 FROM alpine:3.16.2
 RUN apk --update --no-cache add \
-  python3 ca-certificates gcc libffi-dev python3-dev musl-dev openssl-dev g++ libxml2-dev \
-  libxslt-dev libjpeg-turbo-dev zlib-dev tshark py3-pip rust cargo protobuf
+  python3 ca-certificates py3-pip mitmproxy protobuf
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir mitmproxy
+RUN pip install --no-cache-dir jsonpath-ng
 ENV LANG=en_US.UTF-8
 VOLUME /root/.mitmproxy
 EXPOSE 8080
