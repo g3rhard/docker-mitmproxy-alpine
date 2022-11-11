@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir jsonpath-ng
 ENV LANG=en_US.UTF-8
 VOLUME /root/.mitmproxy
 EXPOSE 8080
-CMD ["mitmproxy"]
+CMD ["tail", "-f", "/dev/null"]
