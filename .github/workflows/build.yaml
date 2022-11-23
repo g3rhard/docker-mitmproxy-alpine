@@ -6,6 +6,9 @@ on:
       - 'production'
     tags:
       - 'v*.*.*'
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
 permissions:
   contents: read
   packages: write

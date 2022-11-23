@@ -1,0 +1,23 @@
+name: Hadolint
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ production ]
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+  pull_request:
+    branches: [ production ]
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: hadolint/hadolint-action@v3.0.0
+      with:
+        dockerfile: Dockerfile
