@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'production'
+      - "production"
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
     paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
+      - "README.md"
+      - "LICENSE"
 permissions:
   contents: read
   packages: write
