@@ -1,13 +1,31 @@
-FROM alpine:3.16.2
-RUN apk --update --no-cache add \
-  python3 ca-certificates py3-pip protobuf
-RUN apk --update --no-cache add \
-  py3-zstandard --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/
-RUN apk --update --no-cache add \
-  mitmproxy --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir jsonpath-ng
+FROM python:3.10-slim as builder
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+FROM alpine:3.17.0
+
 ENV LANG=en_US.UTF-8
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY --from=builder /opt/venv /opt/venv
+
+RUN echo -e "http://dl-cdn.alpinelinux.org/alpine/edge/testing\nhttp://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories &&\
+  apk --update --no-cache add \
+  protobuf \
+  mitmproxy
+
 VOLUME /root/.mitmproxy
 EXPOSE 8080
 CMD ["tail", "-f", "/dev/null"]
