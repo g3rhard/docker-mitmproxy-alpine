@@ -61,6 +61,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: g3rhard/docker-mitmproxy-alpine
+          readme-filepath: README.md
+
       - name: Send Discord notification
         uses: sarisia/actions-status-discord@v1
         if: always()
