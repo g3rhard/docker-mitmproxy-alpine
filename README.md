@@ -6,6 +6,16 @@
 
 Docker image for mitmproxy, based on Alpine, currently for armv7 arch.
 
+## Run docker image
+
+```sh
+docker run -rm -d --name mitmproxy \
+  -v "$(pwd)/scripts:/root/scripts" \
+  -v "$(pwd)/www:/root/www" \
+  --network host \
+  g3rhard/mitmproxy-alpine:production
+```
+
 [badge-gh-actions-build]: https://github.com/g3rhard/docker-mitmproxy-alpine/actions/workflows/build.yml/badge.svg?branch=production
 [link-gh-actions-build]: https://github.com/g3rhard/docker-mitmproxy-alpine/actions?query=workflow%3Abuild
 [badge-gh-actions-snyk]: https://github.com/g3rhard/docker-mitmproxy-alpine/actions/workflows/snyk.yml/badge.svg?branch=production
