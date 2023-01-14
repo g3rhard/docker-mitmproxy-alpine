@@ -66,7 +66,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: g3rhard/docker-mitmproxy-alpine
+          repository: g3rhard/mitmproxy-alpine
           readme-filepath: README.md
 
       - name: Send Discord notification
